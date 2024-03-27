@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { Box, Heading, FormControl, FormLabel, Input, Button, Table, Thead, Tbody, Tr, Th, Td, VStack, IconButton } from "@chakra-ui/react";
+import { Box, Heading, FormControl, FormLabel, Input, Button, Table, Thead, Tbody, Tr, Th, Td, VStack, IconButton, useToast } from "@chakra-ui/react";
 import { FaTrash } from "react-icons/fa";
 
 const Index = () => {
   const [customers, setCustomers] = useState([]);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+  const toast = useToast();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -13,6 +14,13 @@ const Index = () => {
     setCustomers([...customers, newCustomer]);
     setName("");
     setEmail("");
+    toast({
+      title: "Customer added.",
+      description: "The new customer has been successfully added.",
+      status: "success",
+      duration: 3000,
+      isClosable: true,
+    });
   };
 
   const handleDelete = (index) => {
