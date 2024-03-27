@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { Box, Heading, FormControl, FormLabel, Input, Button, Table, Thead, Tbody, Tr, Th, Td, VStack } from "@chakra-ui/react";
+import { Box, Heading, FormControl, FormLabel, Input, Button, Table, Thead, Tbody, Tr, Th, Td, VStack, IconButton } from "@chakra-ui/react";
+import { FaTrash } from "react-icons/fa";
 
 const Index = () => {
   const [customers, setCustomers] = useState([]);
@@ -12,6 +13,11 @@ const Index = () => {
     setCustomers([...customers, newCustomer]);
     setName("");
     setEmail("");
+  };
+
+  const handleDelete = (index) => {
+    const updatedCustomers = customers.filter((_, i) => i !== index);
+    setCustomers(updatedCustomers);
   };
 
   return (
@@ -49,6 +55,7 @@ const Index = () => {
               <Tr>
                 <Th>Name</Th>
                 <Th>Email</Th>
+                <Th></Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -56,6 +63,9 @@ const Index = () => {
                 <Tr key={index}>
                   <Td>{customer.name}</Td>
                   <Td>{customer.email}</Td>
+                  <Td>
+                    <IconButton icon={<FaTrash />} aria-label="Delete" onClick={() => handleDelete(index)} size="sm" variant="ghost" colorScheme="red" />
+                  </Td>
                 </Tr>
               ))}
             </Tbody>
